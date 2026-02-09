@@ -12,6 +12,7 @@ import BundleUpsell from './BundleUpsell';
 import StickyBottomCTA from './StickyBottomCTA';
 import RelatedProducts from './RelatedProducts';
 import ShareButton from './ShareButton';
+import ProductShowcase from './ProductShowcase';
 
 interface ProductPageClientProps {
   product: ShopifyProduct;
@@ -47,6 +48,8 @@ export default function ProductPageClient({ product, extended, related, rating, 
 
       <ProductGallery images={images} />
       <ProductInfo product={product} ctaRef={ctaRef} />
+
+      <ProductShowcase handle={product.handle} />
 
       <div className="border-t border-border">
         <ProductTabs extended={extended} rating={rating} reviewCount={reviewCount} />
