@@ -245,28 +245,28 @@ export default function ProductShowcase({ handle }: { handle: string }) {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Without */}
-          <div className="rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 p-6">
-            <h3 className="font-semibold text-red-700 dark:text-red-400 mb-4 text-center">
-              ❌ Without a template
+          <div className="rounded-2xl bg-surface-alt border border-border p-6">
+            <h3 className="font-semibold text-text-primary mb-4 text-center text-base">
+              Without a template
             </h3>
             <ul className="space-y-3">
               {data.beforeAfter.map((row) => (
-                <li key={row.without} className="flex items-start gap-2 text-sm text-red-700 dark:text-red-300">
-                  <span className="shrink-0 mt-0.5">❌</span>
+                <li key={row.without} className="flex items-start gap-3 text-sm text-text-secondary">
+                  <span className="shrink-0 mt-0.5 text-error text-base">✕</span>
                   {row.without}
                 </li>
               ))}
             </ul>
           </div>
           {/* With */}
-          <div className="rounded-2xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900 p-6">
-            <h3 className="font-semibold text-green-700 dark:text-green-400 mb-4 text-center">
-              ✅ With our template
+          <div className="rounded-2xl bg-primary p-6">
+            <h3 className="font-semibold text-white mb-4 text-center text-base">
+              With our template
             </h3>
             <ul className="space-y-3">
               {data.beforeAfter.map((row) => (
-                <li key={row.with} className="flex items-start gap-2 text-sm text-green-700 dark:text-green-300">
-                  <span className="shrink-0 mt-0.5">✅</span>
+                <li key={row.with} className="flex items-start gap-3 text-sm text-white/85">
+                  <span className="shrink-0 mt-0.5 text-accent text-base">✓</span>
                   {row.with}
                 </li>
               ))}

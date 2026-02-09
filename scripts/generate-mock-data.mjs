@@ -60,56 +60,101 @@ function pickName(seed) {
   return `${firstNames[fi]} ${lastInitials[li]}.`;
 }
 
-// Location pools with weighted distribution (~100 entries)
+// Location pools with weighted distribution
 const locationPools = [
-  // USA ~30%
-  ...Array(5).fill('New York, USA'), ...Array(4).fill('Los Angeles, USA'),
-  ...Array(4).fill('Chicago, USA'), ...Array(3).fill('San Francisco, USA'),
-  ...Array(3).fill('Miami, USA'), ...Array(3).fill('Austin, USA'),
-  ...Array(3).fill('Seattle, USA'), ...Array(2).fill('Boston, USA'),
-  ...Array(2).fill('Portland, USA'), ...Array(1).fill('Denver, USA'),
-  // UK ~15%
-  ...Array(5).fill('London, UK'), ...Array(3).fill('Manchester, UK'),
-  ...Array(2).fill('Edinburgh, UK'), ...Array(2).fill('Bristol, UK'),
-  ...Array(2).fill('Leeds, UK'), ...Array(1).fill('Birmingham, UK'),
-  // Germany ~12%
-  ...Array(3).fill('Berlin, Germany'), ...Array(3).fill('Munich, Germany'),
-  ...Array(2).fill('Hamburg, Germany'), ...Array(2).fill('Frankfurt, Germany'),
-  ...Array(1).fill('Stuttgart, Germany'), ...Array(1).fill('Cologne, Germany'),
-  // Australia ~10%
-  ...Array(3).fill('Sydney, Australia'), ...Array(3).fill('Melbourne, Australia'),
-  ...Array(2).fill('Brisbane, Australia'), ...Array(1).fill('Perth, Australia'),
+  // USA ~30% (30 entries)
+  ...Array(5).fill('New York, USA'),
+  ...Array(4).fill('Los Angeles, USA'),
+  ...Array(4).fill('Chicago, USA'),
+  ...Array(3).fill('San Francisco, USA'),
+  ...Array(3).fill('Miami, USA'),
+  ...Array(3).fill('Austin, USA'),
+  ...Array(3).fill('Seattle, USA'),
+  ...Array(2).fill('Boston, USA'),
+  ...Array(2).fill('Portland, USA'),
+  ...Array(1).fill('Denver, USA'),
+  // UK ~15% (15 entries)
+  ...Array(5).fill('London, UK'),
+  ...Array(3).fill('Manchester, UK'),
+  ...Array(2).fill('Edinburgh, UK'),
+  ...Array(2).fill('Bristol, UK'),
+  ...Array(2).fill('Leeds, UK'),
+  ...Array(1).fill('Birmingham, UK'),
+  // Germany ~12% (12 entries)
+  ...Array(3).fill('Berlin, Germany'),
+  ...Array(3).fill('Munich, Germany'),
+  ...Array(2).fill('Hamburg, Germany'),
+  ...Array(2).fill('Frankfurt, Germany'),
+  ...Array(1).fill('Stuttgart, Germany'),
+  ...Array(1).fill('Cologne, Germany'),
+  // Australia ~10% (10 entries)
+  ...Array(3).fill('Sydney, Australia'),
+  ...Array(3).fill('Melbourne, Australia'),
+  ...Array(2).fill('Brisbane, Australia'),
+  ...Array(1).fill('Perth, Australia'),
   ...Array(1).fill('Adelaide, Australia'),
-  // France ~8%
-  ...Array(3).fill('Paris, France'), ...Array(2).fill('Lyon, France'),
-  ...Array(1).fill('Marseille, France'), ...Array(1).fill('Bordeaux, France'),
+  // France ~8% (8 entries)
+  ...Array(3).fill('Paris, France'),
+  ...Array(2).fill('Lyon, France'),
+  ...Array(1).fill('Marseille, France'),
+  ...Array(1).fill('Bordeaux, France'),
   ...Array(1).fill('Toulouse, France'),
-  // Rest of Europe ~15%
-  ...Array(2).fill('Amsterdam, Netherlands'), ...Array(2).fill('Barcelona, Spain'),
-  ...Array(2).fill('Milan, Italy'), ...Array(1).fill('Zurich, Switzerland'),
-  ...Array(1).fill('Vienna, Austria'), ...Array(1).fill('Copenhagen, Denmark'),
-  ...Array(2).fill('Stockholm, Sweden'), ...Array(1).fill('Oslo, Norway'),
-  ...Array(1).fill('Lisbon, Portugal'), ...Array(1).fill('Dublin, Ireland'),
+  // Rest of Europe ~15% (15 entries)
+  ...Array(2).fill('Amsterdam, Netherlands'),
+  ...Array(2).fill('Barcelona, Spain'),
+  ...Array(2).fill('Milan, Italy'),
+  ...Array(1).fill('Zurich, Switzerland'),
+  ...Array(1).fill('Vienna, Austria'),
+  ...Array(1).fill('Copenhagen, Denmark'),
+  ...Array(2).fill('Stockholm, Sweden'),
+  ...Array(1).fill('Oslo, Norway'),
+  ...Array(1).fill('Lisbon, Portugal'),
+  ...Array(1).fill('Dublin, Ireland'),
   ...Array(1).fill('Prague, Czech Republic'),
-  // Rest of World ~10%
-  ...Array(2).fill('Toronto, Canada'), ...Array(2).fill('Tokyo, Japan'),
-  ...Array(1).fill('Singapore, Singapore'), ...Array(1).fill('Dubai, UAE'),
-  ...Array(1).fill('São Paulo, Brazil'), ...Array(1).fill('Mumbai, India'),
-  ...Array(1).fill('Seoul, South Korea'), ...Array(1).fill('Cape Town, South Africa'),
+  // Rest of World ~10% (10 entries)
+  ...Array(2).fill('Toronto, Canada'),
+  ...Array(2).fill('Tokyo, Japan'),
+  ...Array(1).fill('Singapore, Singapore'),
+  ...Array(1).fill('Dubai, UAE'),
+  ...Array(1).fill('São Paulo, Brazil'),
+  ...Array(1).fill('Mumbai, India'),
+  ...Array(1).fill('Seoul, South Korea'),
+  ...Array(1).fill('Cape Town, South Africa'),
 ];
 
+// Name-to-region mapping for plausible matching
 const nameLocationMap = {
-  // Only map very distinctive names to keep distribution close to pool weights
-  'Yuki': 'Tokyo, Japan', 'Hiroshi': 'Tokyo, Japan', 'Sakura': 'Tokyo, Japan',
-  'Kenji': 'Tokyo, Japan', 'Akiko': 'Tokyo, Japan',
-  'Pierre': 'Paris, France', 'Antoine': 'Paris, France',
-  'Raj': 'Mumbai, India', 'Priya': 'Mumbai, India', 'Arjun': 'Mumbai, India',
-  'Giovanni': 'Milan, Italy', 'Francesca': 'Milan, Italy', 'Alessandro': 'Milan, Italy',
-  'Siobhan': 'Dublin, Ireland', 'Ciaran': 'Dublin, Ireland', 'Aoife': 'Dublin, Ireland',
-  'Mohammed': 'Dubai, UAE', 'Fatima': 'Dubai, UAE',
-  'Mei': 'Singapore, Singapore', 'Wei': 'Singapore, Singapore',
+  'Yuki': 'Tokyo, Japan', 'Hiroshi': 'Tokyo, Japan', 'Sakura': 'Tokyo, Japan', 'Takeshi': 'Tokyo, Japan',
+  'Kenji': 'Tokyo, Japan', 'Akiko': 'Tokyo, Japan', 'Daichi': 'Tokyo, Japan', 'Emi': 'Tokyo, Japan',
+  'Shota': 'Tokyo, Japan', 'Nanami': 'Tokyo, Japan', 'Ryota': 'Tokyo, Japan', 'Ayaka': 'Tokyo, Japan',
+  'Haruto': 'Tokyo, Japan', 'Misaki': 'Tokyo, Japan',
+  'Pierre': 'Paris, France', 'Marie': 'Lyon, France', 'Antoine': 'Paris, France', 'Camille': 'Bordeaux, France',
+  'Hugo': 'Paris, France', 'Léa': 'Lyon, France', 'Louis': 'Paris, France', 'Chloé': 'Marseille, France',
+  'Théo': 'Toulouse, France', 'Manon': 'Paris, France',
+  'Thomas': 'Berlin, Germany', 'Jan': 'Hamburg, Germany', 'Felix': 'Munich, Germany', 'Max': 'Berlin, Germany',
+  'Paul': 'Frankfurt, Germany', 'Anna': 'Munich, Germany', 'Sophie': 'Berlin, Germany', 'Laura': 'Stuttgart, Germany',
+  'Raj': 'Mumbai, India', 'Priya': 'Mumbai, India', 'Arjun': 'Mumbai, India', 'Ananya': 'Mumbai, India',
+  'Vikram': 'Mumbai, India', 'Neha': 'Mumbai, India', 'Sanjay': 'Mumbai, India', 'Rohan': 'Mumbai, India',
+  'Giovanni': 'Milan, Italy', 'Francesca': 'Milan, Italy', 'Alessandro': 'Milan, Italy', 'Giulia': 'Milan, Italy',
+  'Matteo': 'Milan, Italy', 'Chiara': 'Milan, Italy', 'Luca': 'Milan, Italy', 'Beatrice': 'Milan, Italy',
+  'Erik': 'Stockholm, Sweden', 'Astrid': 'Stockholm, Sweden', 'Lars': 'Copenhagen, Denmark', 'Sven': 'Stockholm, Sweden',
+  'Nils': 'Oslo, Norway', 'Gustav': 'Stockholm, Sweden',
+  'Patrick': 'Dublin, Ireland', 'Siobhan': 'Dublin, Ireland', 'Sean': 'Dublin, Ireland', 'Aoife': 'Dublin, Ireland',
+  'Ciaran': 'Dublin, Ireland', 'Maeve': 'Dublin, Ireland', 'Declan': 'Dublin, Ireland', 'Niamh': 'Dublin, Ireland',
+  'Mohammed': 'Dubai, UAE', 'Fatima': 'Dubai, UAE', 'Omar': 'Dubai, UAE', 'Ali': 'Dubai, UAE',
+  'Hassan': 'Dubai, UAE', 'Khalid': 'Dubai, UAE',
+  'Carlos': 'São Paulo, Brazil', 'Pedro': 'São Paulo, Brazil', 'Mateo': 'Barcelona, Spain',
+  'Santiago': 'Barcelona, Spain', 'Alejandro': 'Barcelona, Spain',
+  'Mei': 'Singapore, Singapore', 'Wei': 'Singapore, Singapore', 'Li': 'Singapore, Singapore',
+  'Chen': 'Singapore, Singapore', 'Jin': 'Seoul, South Korea',
   'Kofi': 'Cape Town, South Africa', 'Kwame': 'Cape Town, South Africa',
-  'Jin': 'Seoul, South Korea',
+  'James': 'London, UK', 'Oliver': 'London, UK', 'Charlotte': 'London, UK', 'Benjamin': 'Manchester, UK',
+  'Emma': 'New York, USA', 'Liam': 'Chicago, USA', 'Noah': 'Los Angeles, USA', 'Mason': 'San Francisco, USA',
+  'Ethan': 'Austin, USA', 'Logan': 'Seattle, USA', 'Elijah': 'Boston, USA',
+  'Olga': 'Prague, Czech Republic', 'Dmitri': 'Prague, Czech Republic', 'Natasha': 'Vienna, Austria',
+  'Ivan': 'Prague, Czech Republic',
+  'David': 'London, UK', 'Michael': 'New York, USA', 'Daniel': 'Sydney, Australia', 'Jonathan': 'Melbourne, Australia',
+  'Nathan': 'Toronto, Canada', 'Rachel': 'London, UK', 'Rebecca': 'Sydney, Australia', 'Hannah': 'Melbourne, Australia',
 };
 
 function pickLocation(name, seed) {
