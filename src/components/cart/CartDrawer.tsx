@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useCartStore } from '@/lib/stores/cart';
 import Button from '@/components/ui/Button';
-import { mockProducts } from '@/lib/shopify/mock-data';
 import { track } from '@/lib/utils/analytics';
 
 export default function CartDrawer() {
-  const { isOpen, closeCart, items, totalAmount, totalQuantity, removeItem, updateItem, addItem } = useCartStore();
+  const { isOpen, closeCart, items, totalAmount, totalQuantity, removeItem, updateItem } = useCartStore();
+  const [checkingOut, setCheckingOut] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -19,33 +19,36 @@ export default function CartDrawer() {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  // Upsell: suggest bundle if not in cart
-  const bundleProduct = mockProducts.find(p => p.tags.includes('bundle'));
-  const hasBundleInCart = bundleProduct && items.some(i => i.productId === bundleProduct.id);
-
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
+    setCheckingOut(true);
     track('begin_checkout', {
       currency: 'EUR',
       value: totalAmount,
       items: items.map(i => ({ item_id: i.variantId, item_name: i.title, price: i.price, quantity: i.quantity })),
     });
-    // Mock checkout — would redirect to Shopify checkout URL
-    // eslint-disable-next-line no-alert
-    alert(`Redirecting to checkout...\n\nTotal: €${totalAmount.toFixed(2)}\nItems: ${totalQuantity}\n\n(This would redirect to Shopify Checkout in production)`);
-  };
 
-  const handleAddUpsell = () => {
-    if (!bundleProduct) return;
-    const variant = bundleProduct.variants.edges[0].node;
-    addItem({
-      variantId: variant.id,
-      productId: bundleProduct.id,
-      title: bundleProduct.title,
-      price: parseFloat(bundleProduct.priceRange.minVariantPrice.amount),
-      image: bundleProduct.featuredImage.url,
-      handle: bundleProduct.handle,
-      selectedOptions: variant.selectedOptions,
-    });
+    try {
+      // Create a Shopify cart and redirect to checkout
+      const res = await fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lines: items.map(i => ({ merchandiseId: i.variantId, quantity: i.quantity })),
+        }),
+      });
+      const data = await res.json();
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+        return;
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+    }
+
+    setCheckingOut(false);
+    // Fallback: show alert if API fails
+    // eslint-disable-next-line no-alert
+    alert(`Checkout temporarily unavailable. Please try again.`);
   };
 
   return (
@@ -79,61 +82,44 @@ export default function CartDrawer() {
           {items.length === 0 ? (
             <p className="text-text-muted text-center py-10">Your cart is empty</p>
           ) : (
-            <>
-              {items.map((item) => (
-                <div key={item.variantId} className="flex gap-3">
-                  <div className="w-16 h-16 rounded-lg bg-surface-alt flex-shrink-0 overflow-hidden relative">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-text-primary truncate">{item.title}</p>
-                    <p className="text-sm text-text-secondary">€{item.price.toFixed(2)}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <button
-                        onClick={() => updateItem(item.variantId, item.quantity - 1)}
-                        className="w-7 h-7 rounded-lg border border-border text-xs flex items-center justify-center hover:bg-surface"
-                      >
-                        −
-                      </button>
-                      <span className="text-sm font-medium w-4 text-center">{item.quantity}</span>
-                      <button
-                        onClick={() => updateItem(item.variantId, item.quantity + 1)}
-                        className="w-7 h-7 rounded-lg border border-border text-xs flex items-center justify-center hover:bg-surface"
-                      >
-                        +
-                      </button>
-                      <button
-                        onClick={() => removeItem(item.variantId)}
-                        className="text-text-muted text-xs ml-auto hover:text-error"
-                      >
-                        Remove
-                      </button>
-                    </div>
+            items.map((item) => (
+              <div key={item.variantId} className="flex gap-3">
+                <div className="w-16 h-16 rounded-lg bg-surface-alt flex-shrink-0 overflow-hidden relative">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                    sizes="64px"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-text-primary truncate">{item.title}</p>
+                  <p className="text-sm text-text-secondary">€{item.price.toFixed(2)}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <button
+                      onClick={() => updateItem(item.variantId, item.quantity - 1)}
+                      className="w-7 h-7 rounded-lg border border-border text-xs flex items-center justify-center hover:bg-surface"
+                    >
+                      −
+                    </button>
+                    <span className="text-sm font-medium w-4 text-center">{item.quantity}</span>
+                    <button
+                      onClick={() => updateItem(item.variantId, item.quantity + 1)}
+                      className="w-7 h-7 rounded-lg border border-border text-xs flex items-center justify-center hover:bg-surface"
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={() => removeItem(item.variantId)}
+                      className="text-text-muted text-xs ml-auto hover:text-error"
+                    >
+                      Remove
+                    </button>
                   </div>
                 </div>
-              ))}
-
-              {/* Upsell */}
-              {bundleProduct && !hasBundleInCart && (
-                <div className="mt-4 p-3 bg-surface rounded-card border border-border">
-                  <p className="text-xs font-semibold text-accent mb-1">💡 Recommended</p>
-                  <p className="text-sm font-medium text-text-primary mb-1">{bundleProduct.title}</p>
-                  <p className="text-xs text-text-muted mb-2">Add the bundle and save 25%</p>
-                  <button
-                    onClick={handleAddUpsell}
-                    className="text-sm font-semibold text-accent hover:underline"
-                  >
-                    + Add to Cart — €{parseFloat(bundleProduct.priceRange.minVariantPrice.amount).toFixed(2)}
-                  </button>
-                </div>
-              )}
-            </>
+              </div>
+            ))
           )}
         </div>
 
@@ -144,12 +130,12 @@ export default function CartDrawer() {
               <span>Subtotal</span>
               <span>€{totalAmount.toFixed(2)}</span>
             </div>
-            <Button fullWidth onClick={handleCheckout}>
-              Checkout — €{totalAmount.toFixed(2)}
+            <Button fullWidth onClick={handleCheckout} disabled={checkingOut}>
+              {checkingOut ? 'Redirecting...' : `Checkout — €${totalAmount.toFixed(2)}`}
             </Button>
             <div className="text-center space-y-1">
               <p className="text-xs text-text-muted">
-                🔒 Secure checkout
+                🔒 Secure checkout via Shopify
               </p>
               <div className="flex justify-center gap-2 text-xs text-text-muted">
                 <span>Apple Pay</span>

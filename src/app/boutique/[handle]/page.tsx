@@ -1,21 +1,22 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { mockCollections, getCollectionByHandle } from '@/lib/shopify/mock-data';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import CollectionGrid from '@/components/collection/CollectionGrid';
 import { BreadcrumbJsonLd } from '@/lib/seo/structured-data';
+import { getCollections, getCollectionByHandle } from '@/lib/shopify/client';
 
 interface Props {
   params: Promise<{ handle: string }>;
 }
 
 export async function generateStaticParams() {
-  return mockCollections.map(c => ({ handle: c.handle }));
+  const collections = await getCollections(20);
+  return collections.map(c => ({ handle: c.handle }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = await params;
-  const collection = getCollectionByHandle(handle);
+  const collection = await getCollectionByHandle(handle);
   if (!collection) return { title: 'Collection Not Found' };
   return {
     title: collection.title,
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CollectionPage({ params }: Props) {
   const { handle } = await params;
-  const collection = getCollectionByHandle(handle);
+  const collection = await getCollectionByHandle(handle);
   if (!collection) notFound();
 
   const products = collection.products.edges.map(e => e.node);

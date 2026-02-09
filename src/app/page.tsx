@@ -9,6 +9,7 @@ import TestimonialCarousel from '@/components/ui/TestimonialCarousel';
 import FAQ from '@/components/ui/FAQ';
 import FinalCTA from '@/components/sections/FinalCTA';
 import { BreadcrumbJsonLd } from '@/lib/seo/structured-data';
+import { getProducts, getCollections } from '@/lib/shopify/client';
 
 export const metadata: Metadata = {
   title: 'Architecture Paradise — Professional Templates for Architects',
@@ -22,16 +23,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [products, collections] = await Promise.all([
+    getProducts(25, 'BEST_SELLING'),
+    getCollections(20),
+  ]);
+
   return (
     <>
       <BreadcrumbJsonLd items={[{ label: 'Home', href: '/' }]} />
       <Hero />
-      <BestSellers />
+      <BestSellers products={products} />
       <TrustBar />
       <SocialProofBanner />
       <HowItWorks />
-      <CategoriesShowcase />
+      <CategoriesShowcase collections={collections} />
       <TestimonialCarousel />
       <FAQ />
       <FinalCTA />

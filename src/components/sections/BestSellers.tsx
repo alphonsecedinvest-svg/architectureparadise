@@ -4,17 +4,34 @@ import { useState } from 'react';
 import ProductCard from '@/components/ui/ProductCard';
 import SoftwareTabs from './SoftwareTabs';
 import Button from '@/components/ui/Button';
-import { mockProducts } from '@/lib/shopify/mock-data';
+import type { ShopifyProduct } from '@/types';
 
-export default function BestSellers() {
+// Software tag mapping to match real Shopify tags
+const TAG_MAP: Record<string, string> = {
+  'All': '',
+  'AutoCAD': 'Software_AutoCAD',
+  'ArchiCAD': 'Software_Archicad',
+  'Revit': 'Software_Revit',
+  'Illustrator': 'Software_illustrator',
+  'Photoshop': 'Software_Photoshop',
+};
+
+interface BestSellersProps {
+  products: ShopifyProduct[];
+}
+
+export default function BestSellers({ products }: BestSellersProps) {
   const [filter, setFilter] = useState('All');
 
   const filtered =
     filter === 'All'
-      ? mockProducts
-      : mockProducts.filter((p) => p.tags.includes(filter));
+      ? products
+      : products.filter((p) => {
+          const tag = TAG_MAP[filter] || filter;
+          return p.tags.some(t => t.toLowerCase() === tag.toLowerCase());
+        });
 
-  const display = filtered.slice(0, 4);
+  const display = filtered.slice(0, 8);
 
   return (
     <section className="py-12 px-4">

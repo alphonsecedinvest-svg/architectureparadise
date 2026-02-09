@@ -1,10 +1,15 @@
 import type { MetadataRoute } from 'next';
-import { mockProducts, mockCollections } from '@/lib/shopify/mock-data';
+import { getProducts, getCollections } from '@/lib/shopify/client';
 import { mockBlogPosts } from '@/lib/blog/mock-data';
 
 const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://architectureparadise.com';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [products, collections] = await Promise.all([
+    getProducts(50),
+    getCollections(20),
+  ]);
+
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${SITE_URL}/boutique`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
@@ -14,14 +19,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ];
 
-  const collectionPages: MetadataRoute.Sitemap = mockCollections.map((c) => ({
+  const collectionPages: MetadataRoute.Sitemap = collections.map((c) => ({
     url: `${SITE_URL}/boutique/${c.handle}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
 
-  const productPages: MetadataRoute.Sitemap = mockProducts.map((p) => ({
+  const productPages: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${SITE_URL}/produits/${p.handle}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',

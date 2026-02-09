@@ -5,7 +5,7 @@ import Badge from '@/components/ui/Badge';
 import StarRating from '@/components/ui/StarRating';
 import AddToCartButton from '@/components/product/AddToCartButton';
 import type { ShopifyProduct } from '@/types';
-import { getProductRating, getProductSoftware, getProductBadges } from '@/lib/shopify/mock-data';
+import { getProductRating, getProductSoftware, getProductBadges } from '@/lib/shopify/client';
 
 interface ProductInfoProps {
   product: ShopifyProduct;

@@ -1,21 +1,22 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { mockProducts, getProductByHandle, getProductExtended, getProductRating, getRelatedProducts } from '@/lib/shopify/mock-data';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import ProductPageClient from '@/components/product/ProductPageClient';
 import { ProductJsonLd, BreadcrumbJsonLd } from '@/lib/seo/structured-data';
+import { getProducts, getProductByHandle, getRelatedProducts, getProductExtended, getProductRating } from '@/lib/shopify/client';
 
 interface Props {
   params: Promise<{ handle: string }>;
 }
 
 export async function generateStaticParams() {
-  return mockProducts.map(p => ({ handle: p.handle }));
+  const products = await getProducts(50);
+  return products.map(p => ({ handle: p.handle }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = await params;
-  const product = getProductByHandle(handle);
+  const product = await getProductByHandle(handle);
   if (!product) return { title: 'Product Not Found' };
 
   const price = product.priceRange.minVariantPrice;
@@ -45,19 +46,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { handle } = await params;
-  const product = getProductByHandle(handle);
+  const product = await getProductByHandle(handle);
   if (!product) notFound();
 
   const extended = getProductExtended(product.id);
   const { rating, count } = getProductRating(product);
-  const related = getRelatedProducts(product, 4);
+  const related = await getRelatedProducts(product, 4);
 
-  const software = product.tags.find(t => ['ArchiCAD', 'Revit', 'SketchUp'].includes(t));
-  const collectionHandle = software?.toLowerCase() || 'archicad';
+  // Find software from tags
+  const softwareTag = product.tags.find(t => t.startsWith('Software_'));
+  const software = softwareTag?.replace('Software_', '') || 'AutoCAD';
+
+  // Find matching collection handle
+  const collectionMap: Record<string, string> = {
+    'AutoCAD': 'all-blocks-products',
+    'Archicad': 'all-blocks-products',
+    'Revit': 'all-blocks-products',
+    'illustrator': 'all-blocks-products',
+    'Photoshop': 'all-blocks-products',
+  };
+  const collectionHandle = collectionMap[software] || 'all-blocks-products';
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: `${software} Templates`, href: `/boutique/${collectionHandle}` },
+    { label: `${software} Products`, href: `/boutique/${collectionHandle}` },
     { label: product.title },
   ];
 

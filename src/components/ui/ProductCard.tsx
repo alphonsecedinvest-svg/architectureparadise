@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Badge from './Badge';
 import StarRating from './StarRating';
 import type { ShopifyProduct } from '@/types';
-import { getProductRating, getProductSoftware, getProductBadges } from '@/lib/shopify/mock-data';
+import { getProductRating, getProductSoftware, getProductBadges } from '@/lib/shopify/client';
 
 interface ProductCardProps {
   product: ShopifyProduct;

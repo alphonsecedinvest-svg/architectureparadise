@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import type { ShopifyProduct } from '@/types';
-import type { ProductExtended } from '@/lib/shopify/mock-data';
+import type { ProductExtended } from '@/lib/shopify/client';
 import { track } from '@/lib/utils/analytics';
 import ProductGallery from './ProductGallery';
 import ProductInfo from './ProductInfo';

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import StarRating from '@/components/ui/StarRating';
-import type { ProductExtended } from '@/lib/shopify/mock-data';
+import type { ProductExtended } from '@/lib/shopify/client';
 
 type Tab = 'features' | 'compatibility' | 'reviews';
 

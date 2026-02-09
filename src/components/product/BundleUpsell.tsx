@@ -1,18 +1,30 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Button from '@/components/ui/Button';
 import { useCartStore } from '@/lib/stores/cart';
-import { mockProducts } from '@/lib/shopify/mock-data';
+import type { ShopifyProduct } from '@/types';
 
 export default function BundleUpsell() {
-  const bundleProduct = mockProducts.find(p => p.tags.includes('bundle'));
+  const [bundleProduct, setBundleProduct] = useState<ShopifyProduct | null>(null);
   const addItem = useCartStore(s => s.addItem);
+
+  useEffect(() => {
+    // Fetch bundle products from API
+    fetch('/api/products?tag=bundle&first=1')
+      .then(r => r.ok ? r.json() : [])
+      .then((products: ShopifyProduct[]) => {
+        if (products.length > 0) setBundleProduct(products[0]);
+      })
+      .catch(() => {});
+  }, []);
 
   if (!bundleProduct) return null;
 
   const price = parseFloat(bundleProduct.priceRange.minVariantPrice.amount);
-  const compareAt = parseFloat(bundleProduct.compareAtPriceRange.minVariantPrice.amount);
-  const variant = bundleProduct.variants.edges[0].node;
+  const compareAt = parseFloat(bundleProduct.compareAtPriceRange?.minVariantPrice?.amount || '0');
+  const variant = bundleProduct.variants.edges[0]?.node;
+  if (!variant) return null;
 
   const handleAdd = () => {
     addItem({
@@ -20,7 +32,7 @@ export default function BundleUpsell() {
       productId: bundleProduct.id,
       title: bundleProduct.title,
       price,
-      image: bundleProduct.featuredImage.url,
+      image: bundleProduct.featuredImage?.url || '',
       handle: bundleProduct.handle,
       selectedOptions: variant.selectedOptions,
     });
@@ -34,11 +46,11 @@ export default function BundleUpsell() {
       </div>
       <p className="font-semibold text-text-primary mb-1">{bundleProduct.title}</p>
       <div className="flex items-baseline gap-2 mb-3">
-        {compareAt > 0 && (
+        {compareAt > 0 && compareAt > price && (
           <span className="text-text-muted text-sm line-through">€{compareAt.toFixed(2)}</span>
         )}
         <span className="text-lg font-bold text-text-primary">€{price.toFixed(2)}</span>
-        {compareAt > 0 && (
+        {compareAt > 0 && compareAt > price && (
           <span className="text-success text-sm font-semibold">
             Save {Math.round(((compareAt - price) / compareAt) * 100)}%
           </span>
