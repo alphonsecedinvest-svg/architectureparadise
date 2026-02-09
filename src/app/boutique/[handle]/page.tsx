@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { mockCollections, getCollectionByHandle } from '@/lib/shopify/mock-data';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import CollectionGrid from '@/components/collection/CollectionGrid';
+import { BreadcrumbJsonLd } from '@/lib/seo/structured-data';
 
 interface Props {
   params: Promise<{ handle: string }>;
@@ -17,8 +18,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const collection = getCollectionByHandle(handle);
   if (!collection) return { title: 'Collection Not Found' };
   return {
-    title: `${collection.title} — Architecture Paradise`,
+    title: collection.title,
     description: collection.description,
+    openGraph: {
+      title: `${collection.title} — Architecture Paradise`,
+      description: collection.description,
+      images: collection.image ? [{ url: collection.image.url, width: collection.image.width, height: collection.image.height }] : [],
+    },
   };
 }
 
@@ -29,17 +35,17 @@ export default async function CollectionPage({ params }: Props) {
 
   const products = collection.products.edges.map(e => e.node);
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Boutique', href: '/boutique' },
+    { label: collection.title },
+  ];
+
   return (
     <div className="min-h-screen">
-      <Breadcrumbs
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Boutique', href: '/boutique' },
-          { label: collection.title },
-        ]}
-      />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <Breadcrumbs items={breadcrumbItems} />
 
-      {/* Collection header */}
       <div className="px-4 pb-3">
         <h1 className="text-2xl font-bold text-text-primary">{collection.title}</h1>
         <p className="text-sm text-text-secondary mt-1">{collection.description}</p>
