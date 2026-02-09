@@ -50,7 +50,8 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   const extended = getProductExtended(product.handle);
-  const { rating, count } = getProductRating(product);
+  const { rating } = getProductRating(product);
+  const count = extended.reviews.length || 75;
   const related = await getRelatedProducts(product, 4);
 
   // Find software from tags
