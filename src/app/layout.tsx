@@ -5,6 +5,11 @@ import Header from '@/components/layout/Header';
 import AnnouncementBar from '@/components/layout/AnnouncementBar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
+import GAProvider from '@/components/tracking/GAProvider';
+import MetaPixel from '@/components/tracking/MetaPixel';
+import CookieConsent from '@/components/tracking/CookieConsent';
+import WebVitalsReporter from '@/components/tracking/WebVitalsReporter';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/lib/seo/structured-data';
 
 const inter = Inter({
@@ -46,19 +51,25 @@ export const metadata: Metadata = {
     },
   },
   alternates: { canonical: SITE_URL },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} scroll-smooth`}>
       <body className="font-sans">
         <OrganizationJsonLd />
         <WebSiteJsonLd />
+        <GAProvider />
+        <MetaPixel />
+        <WebVitalsReporter />
         <AnnouncementBar />
         <Header />
         <main>{children}</main>
         <Footer />
         <CartDrawer />
+        <ScrollToTop />
+        <CookieConsent />
       </body>
     </html>
   );

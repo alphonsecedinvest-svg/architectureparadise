@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import type { ShopifyProduct } from '@/types';
+import { track } from '@/lib/utils/analytics';
 import ProductCard from '@/components/ui/ProductCard';
 import { SkeletonGrid } from '@/components/ui/Skeleton';
 import BottomSheet from '@/components/ui/BottomSheet';
@@ -36,6 +37,19 @@ export default function CollectionGrid({ products, pageSize = 12 }: CollectionGr
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const [loading, setLoading] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+
+  // Track view_item_list on mount
+  useEffect(() => {
+    track('view_item_list', {
+      item_list_name: 'collection',
+      items: products.slice(0, 12).map(p => ({
+        item_id: p.id,
+        item_name: p.title,
+        price: parseFloat(p.priceRange.minVariantPrice.amount),
+        item_category: p.productType,
+      })),
+    });
+  }, [products]);
 
   // Extract available categories
   const allCategories = useMemo(() => [...new Set(products.map(p => p.productType))], [products]);

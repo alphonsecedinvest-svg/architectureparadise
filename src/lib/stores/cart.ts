@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartItem } from '@/types';
+import { track } from '@/lib/utils/analytics';
 
 interface CartState {
   cartId: string | null;
@@ -54,6 +55,12 @@ export const useCartStore = create<CartState>()(
         }
 
         set({ items: newItems, ...recalc(newItems), isOpen: true });
+
+        track('add_to_cart', {
+          currency: 'EUR',
+          value: item.price * (item.quantity || 1),
+          items: [{ item_id: item.variantId, item_name: item.title, price: item.price, quantity: item.quantity || 1 }],
+        });
       },
 
       updateItem: (variantId, quantity) => {
@@ -65,8 +72,17 @@ export const useCartStore = create<CartState>()(
       },
 
       removeItem: (variantId) => {
+        const removed = get().items.find(i => i.variantId === variantId);
         const newItems = get().items.filter(i => i.variantId !== variantId);
         set({ items: newItems, ...recalc(newItems) });
+
+        if (removed) {
+          track('remove_from_cart', {
+            currency: 'EUR',
+            value: removed.price * removed.quantity,
+            items: [{ item_id: removed.variantId, item_name: removed.title, price: removed.price, quantity: removed.quantity }],
+          });
+        }
       },
 
       clearCart: () => set({ items: [], totalQuantity: 0, totalAmount: 0 }),

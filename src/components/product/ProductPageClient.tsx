@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import type { ShopifyProduct } from '@/types';
 import type { ProductExtended } from '@/lib/shopify/mock-data';
+import { track } from '@/lib/utils/analytics';
 import ProductGallery from './ProductGallery';
 import ProductInfo from './ProductInfo';
 import ProductTabs from './ProductTabs';
@@ -22,8 +23,20 @@ interface ProductPageClientProps {
 
 export default function ProductPageClient({ product, extended, related, rating, reviewCount }: ProductPageClientProps) {
   const ctaRef = useRef<HTMLDivElement>(null);
-
   const images = product.images.edges.map(e => e.node);
+
+  useEffect(() => {
+    track('view_item', {
+      currency: 'EUR',
+      value: parseFloat(product.priceRange.minVariantPrice.amount),
+      items: [{
+        item_id: product.id,
+        item_name: product.title,
+        price: parseFloat(product.priceRange.minVariantPrice.amount),
+        item_category: product.productType,
+      }],
+    });
+  }, [product.id, product.title, product.priceRange.minVariantPrice.amount, product.productType]);
 
   return (
     <>

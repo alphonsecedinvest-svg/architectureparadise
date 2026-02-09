@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useCartStore } from '@/lib/stores/cart';
 import Button from '@/components/ui/Button';
 import { mockProducts } from '@/lib/shopify/mock-data';
+import { track } from '@/lib/utils/analytics';
 
 export default function CartDrawer() {
   const { isOpen, closeCart, items, totalAmount, totalQuantity, removeItem, updateItem, addItem } = useCartStore();
@@ -23,6 +24,11 @@ export default function CartDrawer() {
   const hasBundleInCart = bundleProduct && items.some(i => i.productId === bundleProduct.id);
 
   const handleCheckout = () => {
+    track('begin_checkout', {
+      currency: 'EUR',
+      value: totalAmount,
+      items: items.map(i => ({ item_id: i.variantId, item_name: i.title, price: i.price, quantity: i.quantity })),
+    });
     // Mock checkout — would redirect to Shopify checkout URL
     // eslint-disable-next-line no-alert
     alert(`Redirecting to checkout...\n\nTotal: €${totalAmount.toFixed(2)}\nItems: ${totalQuantity}\n\n(This would redirect to Shopify Checkout in production)`);

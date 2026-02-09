@@ -1,11 +1,19 @@
+import NewsletterForm from './NewsletterForm';
+
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white py-10 px-4">
+    <footer className="bg-primary text-white py-10 px-4 print:hidden">
       <div className="max-w-[1200px] mx-auto">
         {/* Logo */}
         <p className="font-bold text-lg mb-6 text-center tablet:text-left">
           architectureparadise
         </p>
+
+        {/* Newsletter */}
+        <div className="mb-8 max-w-md mx-auto tablet:mx-0">
+          <p className="text-sm text-white/70 mb-2">Get updates on new templates & exclusive deals</p>
+          <NewsletterForm />
+        </div>
 
         {/* Links */}
         <nav className="flex flex-wrap justify-center tablet:justify-start gap-x-6 gap-y-2 text-sm text-white/70 mb-8">
