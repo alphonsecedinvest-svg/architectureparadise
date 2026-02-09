@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Badge from './Badge';
 import StarRating from './StarRating';
 import type { ShopifyProduct } from '@/types';
@@ -6,9 +7,10 @@ import { getProductRating, getProductSoftware, getProductBadges } from '@/lib/sh
 
 interface ProductCardProps {
   product: ShopifyProduct;
+  priority?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { rating, count } = getProductRating(product);
   const software = getProductSoftware(product);
   const badges = getProductBadges(product);
@@ -18,7 +20,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     : null;
 
   return (
-    <a
+    <Link
       href={`/produits/${product.handle}`}
       className="block bg-card rounded-card shadow-[0_2px_8px_rgba(0,0,0,0.06)] overflow-hidden transition-shadow hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)]"
     >
@@ -30,6 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           fill
           className="object-cover"
           sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
+          priority={priority}
         />
         {/* Badges */}
         {badges.length > 0 && (
@@ -73,6 +76,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span>⚡</span> Instant Download
         </p>
       </div>
-    </a>
+    </Link>
   );
 }

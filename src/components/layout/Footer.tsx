@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import NewsletterForm from './NewsletterForm';
 
 export default function Footer() {
@@ -14,20 +15,20 @@ export default function Footer() {
 
         {/* Newsletter */}
         <div className="mb-8 max-w-md mx-auto tablet:mx-0">
-          <p className="text-sm text-white/70 mb-2">Get updates on new products &amp; exclusive deals</p>
+          <p className="text-sm text-white/70 mb-2">Get 10% off your first order + free CAD tips every week</p>
           <NewsletterForm />
         </div>
 
         {/* Links */}
         <nav className="flex flex-wrap justify-center tablet:justify-start gap-x-6 gap-y-2 text-sm text-white/70 mb-8">
-          <a href="/boutique" className="hover:text-white transition-colors">Templates</a>
-          <a href="/boutique" className="hover:text-white transition-colors">CAD Blocks</a>
-          <a href="/boutique" className="hover:text-white transition-colors">Bundles</a>
-          <a href="/about" className="hover:text-white transition-colors">About</a>
-          <a href="/faq" className="hover:text-white transition-colors">FAQ</a>
-          <a href="/contact" className="hover:text-white transition-colors">Contact</a>
-          <a href="/terms" className="hover:text-white transition-colors">Terms</a>
-          <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
+          <Link href="/boutique/templates" className="hover:text-white transition-colors">Templates</Link>
+          <Link href="/boutique/all-blocks-products" className="hover:text-white transition-colors">CAD Blocks</Link>
+          <Link href="/boutique/offers" className="hover:text-white transition-colors">Bundles</Link>
+          <Link href="/about" className="hover:text-white transition-colors">About</Link>
+          <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
+          <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+          <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+          <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
         </nav>
 
         {/* Payment icons */}

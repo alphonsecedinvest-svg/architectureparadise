@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 interface MobileMenuProps {
   open: boolean;
@@ -9,9 +10,9 @@ interface MobileMenuProps {
 
 const links = [
   { label: 'Home', href: '/' },
-  { label: 'Templates', href: '/boutique' },
-  { label: 'CAD Blocks', href: '/boutique' },
-  { label: 'Bundles', href: '/boutique' },
+  { label: 'Templates', href: '/boutique/templates' },
+  { label: 'CAD Blocks', href: '/boutique/all-blocks-products' },
+  { label: 'Bundles', href: '/boutique/offers' },
   { label: 'About', href: '/about' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
@@ -56,14 +57,14 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
         {/* Links */}
         <nav className="py-4">
           {links.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               onClick={onClose}
               className="block px-6 py-3 text-text-primary font-medium hover:bg-surface-alt transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>

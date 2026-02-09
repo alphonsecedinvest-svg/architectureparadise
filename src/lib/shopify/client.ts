@@ -15,7 +15,7 @@ async function shopifyFetch<T>({ query, variables }: {
     throw new Error('Shopify credentials not configured — using mock data');
   }
 
-  const res = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
+  const res = await fetch(`https://${SHOPIFY_DOMAIN}/api/2025-01/graphql.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

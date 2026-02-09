@@ -36,9 +36,9 @@ export default async function HomePage() {
       <BestSellers products={products} />
       <TrustBar />
       <SocialProofBanner />
+      <TestimonialCarousel />
       <HowItWorks />
       <CategoriesShowcase collections={collections} />
-      <TestimonialCarousel />
       <FAQ />
       <FinalCTA />
     </>

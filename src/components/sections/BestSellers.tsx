@@ -1,5 +1,4 @@
-'use client';
-
+import Link from 'next/link';
 import ProductCard from '@/components/ui/ProductCard';
 import Button from '@/components/ui/Button';
 import type { ShopifyProduct } from '@/types';
@@ -42,8 +41,8 @@ export default function BestSellers({ products }: CatalogueSectionsProps) {
           </div>
 
           <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-8">
-            {templates.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {templates.map((product, i) => (
+              <ProductCard key={product.id} product={product} priority={i < 3} />
             ))}
           </div>
         </div>
@@ -68,7 +67,7 @@ export default function BestSellers({ products }: CatalogueSectionsProps) {
           </div>
 
           <div className="text-center">
-            <a href="/boutique"><Button variant="ghost">Browse All Blocks →</Button></a>
+            <Link href="/boutique"><Button variant="ghost">Browse All Blocks →</Button></Link>
           </div>
         </div>
       </section>

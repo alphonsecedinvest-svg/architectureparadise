@@ -167,7 +167,7 @@ There's no universally "best" software — only the best fit for your specific s
 
 ---
 
-*Have questions about choosing the right platform? Email us at support@architectureparadise.com — our team uses all three daily and can give you honest advice.*`,
+*Have questions about choosing the right platform? Email us at contact@architectureparadise.com — our team uses all three daily and can give you honest advice.*`,
   },
   {
     slug: 'how-to-create-residential-floor-plan-archicad',
@@ -371,7 +371,7 @@ Each template includes floor plans, sections, elevations, 3D model, and document
 
 ---
 
-*Questions about ArchiCAD workflows? Reach out at support@architectureparadise.com — our team includes ArchiCAD-certified professionals who can help.*`,
+*Questions about ArchiCAD workflows? Reach out at contact@architectureparadise.com — our team includes ArchiCAD-certified professionals who can help.*`,
   },
 ];
 

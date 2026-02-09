@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useCartStore } from '@/lib/stores/cart';
 import Button from '@/components/ui/Button';
@@ -9,6 +9,7 @@ import { track } from '@/lib/utils/analytics';
 export default function CartDrawer() {
   const { isOpen, closeCart, items, totalAmount, totalQuantity, removeItem, updateItem } = useCartStore();
   const [checkingOut, setCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -21,6 +22,7 @@ export default function CartDrawer() {
 
   const handleCheckout = async () => {
     setCheckingOut(true);
+    setCheckoutError(null);
     track('begin_checkout', {
       currency: 'EUR',
       value: totalAmount,
@@ -46,9 +48,7 @@ export default function CartDrawer() {
     }
 
     setCheckingOut(false);
-    // Fallback: show alert if API fails
-    // eslint-disable-next-line no-alert
-    alert(`Checkout temporarily unavailable. Please try again.`);
+    setCheckoutError('Checkout temporarily unavailable. Please try again.');
   };
 
   return (
@@ -130,6 +130,11 @@ export default function CartDrawer() {
               <span>Subtotal</span>
               <span>€{totalAmount.toFixed(2)}</span>
             </div>
+            {checkoutError && (
+              <p className="text-error text-sm text-center bg-error/10 rounded-lg py-2 px-3">
+                {checkoutError}
+              </p>
+            )}
             <Button fullWidth onClick={handleCheckout} disabled={checkingOut}>
               {checkingOut ? 'Redirecting...' : `Checkout — €${totalAmount.toFixed(2)}`}
             </Button>

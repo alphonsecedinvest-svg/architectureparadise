@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 
 export default function Hero() {
@@ -5,8 +6,8 @@ export default function Hero() {
     <section className="bg-gradient-to-b from-surface to-surface-alt px-5 pt-16 pb-12 tablet:pt-20 tablet:pb-16 desktop:pt-24">
       <div className="max-w-[1200px] mx-auto text-center">
         {/* Trust badge */}
-        <p className="text-text-secondary text-xs font-medium uppercase tracking-[0.1em] mb-4">
-          Handcrafted by Swiss Designers
+        <p className="text-text-secondary text-xs font-medium uppercase tracking-[0.15em] mb-4">
+          Trusted by 12,000+ architects worldwide
         </p>
 
         {/* Headline */}
@@ -16,17 +17,22 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p className="text-text-secondary text-base leading-relaxed mb-8 max-w-lg mx-auto">
-          All-in-one professional templates for AutoCAD, ArchiCAD &amp; Revit — plus hand-drawn CAD blocks in universal .dwg format. Instant download.
+          Professional CAD templates &amp; hand-drawn blocks for AutoCAD, ArchiCAD &amp; Revit. Save 40+ hours on every project.
         </p>
 
         {/* CTA */}
-        <div className="mb-8">
-          <a href="/boutique">
+        <div className="mb-4">
+          <Link href="/boutique">
             <Button fullWidth className="tablet:w-auto">
-              Browse Templates
+              Get Your Template — From $29
             </Button>
-          </a>
+          </Link>
         </div>
+
+        {/* Social proof */}
+        <p className="text-text-muted text-xs mb-8">
+          ★★★★★ 4.8/5 average rating · Instant download · Money-back guarantee
+        </p>
 
         {/* Trust micro-icons */}
         <div className="flex flex-wrap justify-center gap-4 text-text-secondary text-sm">

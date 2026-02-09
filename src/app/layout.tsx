@@ -57,6 +57,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} scroll-smooth`}>
+      <head>
+        <link rel="preconnect" href="https://cdn.shopify.com" />
+      </head>
       <body className="font-sans">
         <OrganizationJsonLd />
         <WebSiteJsonLd />

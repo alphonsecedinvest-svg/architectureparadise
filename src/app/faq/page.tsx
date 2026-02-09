@@ -25,7 +25,7 @@ const faqSections = [
     items: [
       { question: 'How do I receive my purchase?', answer: 'Instantly! A download link is sent to your email the moment your payment is confirmed. No waiting, no approval process.' },
       { question: 'What payment methods do you accept?', answer: 'We accept all major credit cards (Visa, Mastercard, American Express), PayPal, Apple Pay, and Google Pay through our secure Shopify checkout.' },
-      { question: 'Do you offer refunds?', answer: 'As these are digital products delivered instantly, we cannot offer refunds. If you have any issues with your files, our support team is available at contact@architectureparadise.com.' },
+      { question: 'Do you offer refunds?', answer: 'Yes, we offer a 14-day money-back guarantee if the product doesn\'t work as described. Contact us at contact@architectureparadise.com and we\'ll make it right.' },
     ],
   },
   {

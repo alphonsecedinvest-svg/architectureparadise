@@ -25,7 +25,7 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
-              { icon: '✉️', title: 'Email', value: 'support@architectureparadise.com', href: 'mailto:support@architectureparadise.com' },
+              { icon: '✉️', title: 'Email', value: 'contact@architectureparadise.com', href: 'mailto:contact@architectureparadise.com' },
               { icon: '⏱', title: 'Response Time', value: 'Within 24 hours', href: null },
               { icon: '🌍', title: 'Availability', value: 'Mon–Fri, 9am–6pm CET', href: null },
             ].map((item) => (

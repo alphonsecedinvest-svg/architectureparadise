@@ -1,11 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { ShopifyCollection } from '@/types';
 
 interface CategoriesShowcaseProps {
   collections: ShopifyCollection[];
 }
 
-// Group collections into 3 categories for display
 const CATEGORY_CONFIG = [
   { label: 'Templates', description: 'All-in-one professional packages', matchTerms: ['template', 'autocad', 'archicad', 'revit'] },
   { label: 'CAD Blocks', description: 'Hand-drawn 2D blocks in .dwg format', matchTerms: ['block', 'furniture', 'people', 'vegetation', 'urban', 'healthcare', 'environment', 'tree', 'residential'] },
@@ -13,7 +13,6 @@ const CATEGORY_CONFIG = [
 ];
 
 export default function CategoriesShowcase({ collections }: CategoriesShowcaseProps) {
-  // Find a representative collection for each category
   const categories = CATEGORY_CONFIG.map((cat) => {
     const match = collections.find((col) =>
       cat.matchTerms.some((term) => col.handle.toLowerCase().includes(term))
@@ -30,7 +29,7 @@ export default function CategoriesShowcase({ collections }: CategoriesShowcasePr
 
         <div className="flex flex-col gap-4 tablet:grid tablet:grid-cols-3">
           {categories.map((cat) => (
-            <a
+            <Link
               key={cat.label}
               href={cat.collection ? `/boutique/${cat.collection.handle}` : '/boutique'}
               className="relative block h-40 tablet:h-48 rounded-card overflow-hidden group"
@@ -53,7 +52,7 @@ export default function CategoriesShowcase({ collections }: CategoriesShowcasePr
                   {cat.description} →
                 </p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

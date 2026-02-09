@@ -9,7 +9,7 @@ export function OrganizationJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     description: 'Professional architecture templates for ArchiCAD, Revit, SketchUp & Rhino.',
-    email: 'support@architectureparadise.com',
+    email: 'contact@architectureparadise.com',
     sameAs: [
       'https://instagram.com/architectureparadise',
       'https://facebook.com/architectureparadise',
@@ -18,7 +18,7 @@ export function OrganizationJsonLd() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'support@architectureparadise.com',
+      email: 'contact@architectureparadise.com',
       availableLanguage: ['English'],
     },
   };

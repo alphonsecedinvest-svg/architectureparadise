@@ -1,24 +1,30 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function AnnouncementBar() {
-  const [dismissed, setDismissed] = useState(true); // start hidden to avoid flash
+  const [dismissed, setDismissed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setDismissed(localStorage.getItem('ap-announce-dismissed') === 'true');
+    const wasDismissed = sessionStorage.getItem('ap-announce-dismissed') === 'true';
+    setDismissed(wasDismissed);
+    setMounted(true);
   }, []);
 
   const dismiss = () => {
     setDismissed(true);
-    localStorage.setItem('ap-announce-dismissed', 'true');
+    sessionStorage.setItem('ap-announce-dismissed', 'true');
   };
 
-  if (dismissed) return null;
+  if (!mounted || dismissed) return null;
 
   return (
     <div className="bg-primary text-white text-xs text-center py-2 px-4 relative">
-      <span>🇨🇭 Handcrafted by Swiss designers · Instant download · Professional use licensed</span>
+      <Link href="/boutique/residential-pack-bundle" className="hover:underline">
+        🔥 Residential Bundle: Save $13 — 3 block packs for the price of 2 → Shop now
+      </Link>
       <button
         onClick={dismiss}
         className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"

@@ -338,6 +338,42 @@ function makeProduct(
   };
 }
 
+// Custom descriptions per product
+const productDescriptions: Record<string, { desc: string; html: string }> = {
+  '1': {
+    desc: 'A complete 3-level modern villa in ArchiCAD with organized layers, section drawings, and render-ready scenes. Skip weeks of setup and start designing immediately.',
+    html: '<p>A complete 3-level modern villa in ArchiCAD with organized layers, section drawings, and render-ready scenes. Skip weeks of setup and start designing immediately.</p>',
+  },
+  '2': {
+    desc: 'Full BIM model of an 8-floor commercial office complex in Revit. Includes MEP coordination, curtain wall details, parking layout, and 200+ Revit families.',
+    html: '<p>Full BIM model of an 8-floor commercial office complex in Revit. Includes MEP coordination, curtain wall details, parking layout, and 200+ Revit families.</p>',
+  },
+  '3': {
+    desc: 'Three complete residential templates in one bundle — villa, apartment, and townhouse. 400+ custom objects, 60+ layers, all in ArchiCAD. Save $13 vs. buying separately.',
+    html: '<p>Three complete residential templates in one bundle — villa, apartment, and townhouse. 400+ custom objects, 60+ layers, all in ArchiCAD. Save $13 vs. buying separately.</p>',
+  },
+  '4': {
+    desc: 'Clean, modern 2-level apartment template for SketchUp. 12 preset render scenes, 80+ components, and a curated material library. Perfect for minimalist residential projects.',
+    html: '<p>Clean, modern 2-level apartment template for SketchUp. 12 preset render scenes, 80+ components, and a curated material library. Perfect for minimalist residential projects.</p>',
+  },
+  '5': {
+    desc: 'Luxury 350m² penthouse in Revit at LOD 350. Custom fixtures, panoramic view setups, lighting design, and 180+ Revit families. Present to clients and get instant approval.',
+    html: '<p>Luxury 350m² penthouse in Revit at LOD 350. Custom fixtures, panoramic view setups, lighting design, and 180+ Revit families. Present to clients and get instant approval.</p>',
+  },
+  '6': {
+    desc: 'Comprehensive 2000m² landscape master plan for SketchUp. Includes 40+ plant species, planting schedules, irrigation zones, and summer/winter views.',
+    html: '<p>Comprehensive 2000m² landscape master plan for SketchUp. Includes 40+ plant species, planting schedules, irrigation zones, and summer/winter views.</p>',
+  },
+  '7': {
+    desc: 'Detailed industrial loft conversion in ArchiCAD with exposed steel structure, 280m² open plan, MEP routing, and 130+ custom objects. Ideal for the loft conversion trend.',
+    html: '<p>Detailed industrial loft conversion in ArchiCAD with exposed steel structure, 280m² open plan, MEP routing, and 130+ custom objects. Ideal for the loft conversion trend.</p>',
+  },
+  '8': {
+    desc: 'Ready-to-use 200m² retail space in Revit with display fixtures, lighting plans, customer flow design, and 5 retail zones. Deliver retail concepts in days, not weeks.',
+    html: '<p>Ready-to-use 200m² retail space in Revit with display fixtures, lighting plans, customer flow design, and 5 retail zones. Deliver retail concepts in days, not weeks.</p>',
+  },
+};
+
 export const mockProducts: ShopifyProduct[] = [
   makeProduct('1', 'Modern Villa Template', 'modern-villa-template', '49.00', '69.00', 'ArchiCAD', 'Residential', ['best-seller'], 4.9, 47),
   makeProduct('2', 'Commercial Office Complex', 'commercial-office-complex', '89.00', null, 'Revit', 'Commercial', ['best-seller'], 4.8, 32),
@@ -347,7 +383,13 @@ export const mockProducts: ShopifyProduct[] = [
   makeProduct('6', 'Landscape Master Plan', 'landscape-master-plan', '59.00', null, 'SketchUp', 'Landscape', [], 4.6, 15),
   makeProduct('7', 'Industrial Loft Conversion', 'industrial-loft-conversion', '69.00', null, 'ArchiCAD', 'Commercial', ['new'], 4.8, 22),
   makeProduct('8', 'Retail Space Design', 'retail-space-design', '29.00', null, 'Revit', 'Commercial', [], 4.5, 11),
-];
+].map(p => {
+  const custom = productDescriptions[p.id];
+  if (custom) {
+    return { ...p, description: custom.desc, descriptionHtml: custom.html };
+  }
+  return p;
+});
 
 export const mockCollections: ShopifyCollection[] = [
   {
@@ -448,6 +490,6 @@ export const mockFAQ: FAQItem[] = [
   { question: 'How do I receive my purchase?', answer: 'Instantly! A download link is sent to your email the moment your payment is confirmed. No waiting, no approval process.' },
   { question: 'Can I use this for commercial projects?', answer: 'Yes. The license covers professional use for your own projects. Redistribution or resale of the files is not permitted.' },
   { question: 'Can I use the blocks in other software?', answer: 'Yes. The CAD blocks are in universal .dwg format, compatible with AutoCAD, ArchiCAD, Revit, SketchUp, and most other CAD programs.' },
-  { question: 'Do you offer refunds?', answer: 'As these are digital products delivered instantly, we cannot offer refunds. If you have any issues, our support team is available at contact@architectureparadise.com.' },
+  { question: 'Do you offer refunds?', answer: 'Yes, we offer a 14-day money-back guarantee if the product doesn\'t work as described. Contact us at contact@architectureparadise.com and we\'ll make it right.' },
   { question: 'How do I get support?', answer: 'Email us at contact@architectureparadise.com. We respond within 24 hours — and our support team actually uses architecture software, so we understand your questions.' },
 ];

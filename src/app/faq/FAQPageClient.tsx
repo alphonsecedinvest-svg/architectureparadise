@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface FAQItem {
   question: string;
@@ -49,9 +50,9 @@ export default function FAQPageClient({ sections }: Props) {
       {filtered.length === 0 && (
         <p className="text-text-secondary text-center py-8">
           No questions match your search. Try different keywords or{' '}
-          <a href="/contact" className="text-accent hover:underline">
+          <Link href="/contact" className="text-accent hover:underline">
             contact us
-          </a>
+          </Link>
           .
         </p>
       )}

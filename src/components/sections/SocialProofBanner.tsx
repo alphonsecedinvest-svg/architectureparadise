@@ -3,7 +3,7 @@ export default function SocialProofBanner() {
     <section className="bg-primary py-8 px-5">
       <div className="max-w-[1200px] mx-auto text-center">
         <p className="text-white text-lg tablet:text-xl font-bold mb-4">
-          Designed by Swiss architects. Used by professionals worldwide.
+          Trusted by 12,000+ architects &amp; students in 60+ countries
         </p>
         <div className="flex items-center justify-center gap-3">
           <div className="flex -space-x-2">
@@ -17,7 +17,7 @@ export default function SocialProofBanner() {
             ))}
           </div>
           <div className="text-white text-sm">
-            <span className="text-star">★★★★★</span> Trusted by architects &amp; students
+            <span className="text-star">★★★★★</span> 4.8/5 average rating · 215+ verified reviews
           </div>
         </div>
       </div>
