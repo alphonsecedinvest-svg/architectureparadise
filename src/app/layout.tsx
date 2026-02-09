@@ -24,10 +24,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     template: '%s | Architecture Paradise',
-    default: 'Architecture Paradise — Professional Templates for Architects',
+    default: 'Architecture Paradise — Professional CAD Templates & Hand-Drawn Blocks',
   },
   description:
-    'Professional architecture templates for ArchiCAD, Revit, SketchUp & Rhino. 500+ production-ready designs. Instant download. Trusted by 12,000+ architects worldwide.',
+    'All-in-one professional templates for AutoCAD, ArchiCAD & Revit, plus handcrafted CAD blocks in universal .dwg format. Made by Swiss designers. Instant download.',
   openGraph: {
     type: 'website',
     locale: 'en_US',

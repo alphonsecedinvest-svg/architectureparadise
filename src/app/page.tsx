@@ -12,14 +12,14 @@ import { BreadcrumbJsonLd } from '@/lib/seo/structured-data';
 import { getProducts, getCollections } from '@/lib/shopify/client';
 
 export const metadata: Metadata = {
-  title: 'Architecture Paradise — Professional Templates for Architects',
+  title: 'Architecture Paradise — Professional CAD Templates & Hand-Drawn Blocks',
   description:
-    'Professional architecture templates for ArchiCAD, Revit, SketchUp & Rhino. 500+ production-ready designs. Instant download. Trusted by 12,000+ architects worldwide.',
+    'All-in-one professional templates for AutoCAD, ArchiCAD & Revit, plus handcrafted CAD blocks in universal .dwg format. Made by Swiss designers. Instant download.',
   openGraph: {
     type: 'website',
-    title: 'Architecture Paradise — Professional Templates for Architects',
+    title: 'Architecture Paradise — Start Drawing. Not Setting Up.',
     description:
-      'Professional architecture templates for ArchiCAD, Revit, SketchUp & Rhino. 500+ production-ready designs. Instant download.',
+      'All-in-one CAD templates + hand-drawn blocks by Swiss designers. AutoCAD, ArchiCAD, Revit. Instant download.',
   },
 };
 

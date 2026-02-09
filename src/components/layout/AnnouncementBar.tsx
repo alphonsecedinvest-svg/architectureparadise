@@ -18,7 +18,7 @@ export default function AnnouncementBar() {
 
   return (
     <div className="bg-primary text-white text-xs text-center py-2 px-4 relative">
-      <span>Free updates forever · 4,200+ architects trust us</span>
+      <span>🇨🇭 Handcrafted by Swiss designers · Instant download · Professional use licensed</span>
       <button
         onClick={dismiss}
         className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"

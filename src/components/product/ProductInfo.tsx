@@ -62,13 +62,13 @@ export default function ProductInfo({ product, ctaRef }: ProductInfoProps) {
       {/* Trust micros */}
       <div className="space-y-1.5 text-sm">
         <p className="flex items-center gap-2 text-text-secondary">
-          <span>⚡</span> Instant download after purchase
+          <span>🇨🇭</span> Handcrafted by Swiss designers
         </p>
         <p className="flex items-center gap-2 text-text-secondary">
-          <span>🔄</span> Free lifetime updates
+          <span>⚡</span> Instant download by email
         </p>
         <p className="flex items-center gap-2 text-text-secondary">
-          <span>📐</span> {software} compatible
+          <span>📐</span> Professional use licensed
         </p>
       </div>
 

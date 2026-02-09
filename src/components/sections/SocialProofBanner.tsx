@@ -3,10 +3,9 @@ export default function SocialProofBanner() {
     <section className="bg-primary py-8 px-5">
       <div className="max-w-[1200px] mx-auto text-center">
         <p className="text-white text-lg tablet:text-xl font-bold mb-4">
-          Join 4,200+ architects who save 40+ hours per project
+          Designed by Swiss architects. Used by professionals worldwide.
         </p>
         <div className="flex items-center justify-center gap-3">
-          {/* Overlapping avatars */}
           <div className="flex -space-x-2">
             {['M', 'T', 'S', 'L', 'A'].map((letter, i) => (
               <div
@@ -18,7 +17,7 @@ export default function SocialProofBanner() {
             ))}
           </div>
           <div className="text-white text-sm">
-            <span className="text-star">★★★★★</span> 4.9/5 average rating
+            <span className="text-star">★★★★★</span> Trusted by architects &amp; students
           </div>
         </div>
       </div>

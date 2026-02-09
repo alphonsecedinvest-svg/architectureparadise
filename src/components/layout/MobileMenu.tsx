@@ -8,10 +8,10 @@ interface MobileMenuProps {
 }
 
 const links = [
-  { label: 'All Templates', href: '/collections' },
-  { label: 'ArchiCAD', href: '/collections/archicad' },
-  { label: 'Revit', href: '/collections/revit' },
-  { label: 'SketchUp', href: '/collections/sketchup' },
+  { label: 'Home', href: '/' },
+  { label: 'Templates', href: '/boutique' },
+  { label: 'CAD Blocks', href: '/boutique' },
+  { label: 'Bundles', href: '/boutique' },
   { label: 'About', href: '/about' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
@@ -57,7 +57,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
         <nav className="py-4">
           {links.map((link) => (
             <a
-              key={link.href}
+              key={link.label}
               href={link.href}
               onClick={onClose}
               className="block px-6 py-3 text-text-primary font-medium hover:bg-surface-alt transition-colors"

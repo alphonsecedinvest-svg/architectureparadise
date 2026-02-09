@@ -1,62 +1,99 @@
 'use client';
 
-import { useState } from 'react';
 import ProductCard from '@/components/ui/ProductCard';
-import SoftwareTabs from './SoftwareTabs';
 import Button from '@/components/ui/Button';
 import type { ShopifyProduct } from '@/types';
 
-// Software tag mapping to match real Shopify tags
-const TAG_MAP: Record<string, string> = {
-  'All': '',
-  'AutoCAD': 'Software_AutoCAD',
-  'ArchiCAD': 'Software_Archicad',
-  'Revit': 'Software_Revit',
-  'Illustrator': 'Software_illustrator',
-  'Photoshop': 'Software_Photoshop',
-};
-
-interface BestSellersProps {
+interface CatalogueSectionsProps {
   products: ShopifyProduct[];
 }
 
-export default function BestSellers({ products }: BestSellersProps) {
-  const [filter, setFilter] = useState('All');
+function isTemplate(p: ShopifyProduct): boolean {
+  const t = p.title.toLowerCase();
+  return t.includes('all-in-one') || t.includes('template') || t.includes('package');
+}
 
-  const filtered =
-    filter === 'All'
-      ? products
-      : products.filter((p) => {
-          const tag = TAG_MAP[filter] || filter;
-          return p.tags.some(t => t.toLowerCase() === tag.toLowerCase());
-        });
+function isBundle(p: ShopifyProduct): boolean {
+  const t = p.title.toLowerCase();
+  return t.includes('bundle') || t.includes('full pack') || t.includes('complete');
+}
 
-  const display = filtered.slice(0, 8);
+function isBlock(p: ShopifyProduct): boolean {
+  return !isTemplate(p) && !isBundle(p);
+}
+
+export default function BestSellers({ products }: CatalogueSectionsProps) {
+  const templates = products.filter(isTemplate);
+  const blocks = products.filter(isBlock).slice(0, 8);
+  const bundles = products.filter(isBundle);
 
   return (
-    <section className="py-12 px-4">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-text-primary mb-2">
-            Best-Selling Templates
-          </h2>
-          <p className="text-text-secondary text-sm">
-            Chosen by thousands of architects
-          </p>
-        </div>
+    <>
+      {/* Templates Section */}
+      <section className="py-12 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-text-primary mb-2">
+              One Package. Everything You Need.
+            </h2>
+            <p className="text-text-secondary text-sm max-w-lg mx-auto">
+              Choose your software. Get a complete professional setup — template, dynamic blocks, startup guide, and presets — in one download.
+            </p>
+          </div>
 
-        <SoftwareTabs onTabChange={setFilter} />
-
-        <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-3 mt-4 mb-8">
-          {display.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-8">
+            {templates.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="text-center">
-          <Button variant="ghost">View All Templates →</Button>
+      {/* CAD Blocks Section */}
+      <section className="py-12 px-4 bg-surface-alt">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-text-primary mb-2">
+              Hand-Drawn CAD Blocks
+            </h2>
+            <p className="text-text-secondary text-sm max-w-lg mx-auto">
+              Unique 2D blocks in universal .dwg format. Designed by hand in our Swiss studio. Compatible with any CAD software.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-3 mb-8">
+            {blocks.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a href="/boutique"><Button variant="ghost">Browse All Blocks →</Button></a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Bundles Section */}
+      {bundles.length > 0 && (
+        <section className="py-12 px-4">
+          <div className="max-w-[1200px] mx-auto">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-text-primary mb-2">
+                Best Value: Get the Bundle
+              </h2>
+              <p className="text-text-secondary text-sm max-w-lg mx-auto">
+                Save when you buy collections together. Our bundles combine multiple block packs at a better price.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mb-8">
+              {bundles.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

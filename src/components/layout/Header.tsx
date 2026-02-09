@@ -26,7 +26,9 @@ export default function Header() {
 
           {/* Desktop nav (hidden on mobile) */}
           <nav className="hidden tablet:flex items-center gap-6 text-sm font-medium text-text-primary">
-            <a href="/collections" className="hover:text-accent transition-colors">Templates</a>
+            <a href="/boutique" className="hover:text-accent transition-colors">Templates</a>
+            <a href="/boutique" className="hover:text-accent transition-colors">CAD Blocks</a>
+            <a href="/boutique" className="hover:text-accent transition-colors">Bundles</a>
             <a href="/about" className="hover:text-accent transition-colors">About</a>
             <a href="/faq" className="hover:text-accent transition-colors">FAQ</a>
           </nav>

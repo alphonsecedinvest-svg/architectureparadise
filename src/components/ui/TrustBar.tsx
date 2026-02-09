@@ -1,8 +1,8 @@
 const items = [
-  { icon: '🔒', title: 'Secure', subtitle: 'Checkout' },
+  { icon: '🇨🇭', title: 'Handcrafted', subtitle: 'by Swiss Designers' },
   { icon: '⚡', title: 'Instant', subtitle: 'Download' },
-  { icon: '🔄', title: 'Free', subtitle: 'Updates' },
-  { icon: '💬', title: '24h', subtitle: 'Support' },
+  { icon: '🖥️', title: 'All CAD', subtitle: 'Software' },
+  { icon: '📐', title: 'Professional', subtitle: 'Use Licensed' },
 ];
 
 export default function TrustBar() {

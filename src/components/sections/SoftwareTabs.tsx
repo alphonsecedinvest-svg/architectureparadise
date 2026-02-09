@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const tabs = ['All', 'AutoCAD', 'ArchiCAD', 'Revit', 'Illustrator', 'Photoshop'];
+const tabs = ['All', 'AutoCAD', 'ArchiCAD', 'Revit'];
 
 interface SoftwareTabsProps {
   onTabChange?: (tab: string) => void;

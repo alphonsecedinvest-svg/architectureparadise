@@ -4,38 +4,38 @@ import { BreadcrumbJsonLd } from '@/lib/seo/structured-data';
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Architecture Paradise is built by architects, for architects. Learn how our team of licensed professionals creates production-ready templates used in 60+ countries.',
+    'Architecture Paradise is a small team of Swiss designers creating professional CAD templates and hand-drawn block libraries for architects and design professionals.',
   openGraph: {
     title: 'About Architecture Paradise',
     description:
-      'Architecture Paradise is built by architects, for architects. Learn how our team creates production-ready templates used in 60+ countries.',
+      'Handcrafted CAD assets by Swiss designers. Professional templates and hand-drawn blocks for architects worldwide.',
   },
 };
 
 const promises = [
   {
-    icon: '🎯',
-    title: 'Production-Ready Quality',
+    icon: '✏️',
+    title: 'Handcrafted Quality',
     description:
-      'Every template meets professional documentation standards. No placeholder content, no "lorem ipsum" annotations.',
+      'Every block is drawn by hand — not auto-generated, not traced. The same care you\'d put into your own projects.',
   },
   {
-    icon: '✅',
-    title: 'Honest Compatibility',
+    icon: '📐',
+    title: 'Professional Use',
     description:
-      'If we say it works with ArchiCAD 27, it works with ArchiCAD 27. Tested, verified, guaranteed.',
+      'All products are licensed for professional use. Templates and blocks designed for real architectural projects.',
   },
   {
     icon: '💬',
     title: 'Real Support',
     description:
-      'Questions answered within 24 hours by people who actually use architecture software. Not chatbots. Not scripts.',
+      'Questions answered within 24 hours by people who actually use CAD software. Not chatbots. Not scripts.',
   },
   {
-    icon: '🔄',
-    title: 'Continuous Updates',
+    icon: '⚡',
+    title: 'Instant Delivery',
     description:
-      'When software versions change, our templates get updated. Your purchase stays current.',
+      'Download links sent to your email immediately after purchase. Start working in minutes, not days.',
   },
 ];
 
@@ -48,10 +48,10 @@ export default function AboutPage() {
       <section className="bg-primary text-white py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            We&apos;re Architects Who Got Tired of Starting From Zero
+            Handcrafted CAD Assets by Swiss Designers
           </h1>
           <p className="text-white/70 text-lg">
-            Built by architects, for architects. Since 2020.
+            Professional templates and hand-drawn blocks for architects worldwide.
           </p>
         </div>
       </section>
@@ -59,50 +59,49 @@ export default function AboutPage() {
       {/* Story */}
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto space-y-6 text-text-secondary leading-relaxed">
+          <h2 className="text-2xl font-bold text-text-primary">Who We Are</h2>
           <p>
-            Architecture Paradise started in 2020 with a simple frustration: why does every new
-            project begin with a blank screen?
+            Architecture Paradise is a small, focused team of designers based in Switzerland.
+            We create professional CAD templates and hand-drawn block libraries for architects,
+            students, and design professionals worldwide.
           </p>
-          <p>
-            We&apos;re a team of licensed architects and BIM specialists who spent years building the
-            same foundations over and over — residential layouts, commercial shells, detail
-            libraries. The same 40 hours of base work before the real design could even begin.
-          </p>
-          <p>
-            So we built what we wished existed: a library of production-ready templates created by
-            architects who understand that a template isn&apos;t a shortcut — it&apos;s a smarter
-            starting point.
-          </p>
-          <p>
-            Every template in our library has been designed, reviewed, and tested by practicing
-            professionals. We don&apos;t use generic 3D modelers or AI generators. We build what
-            we&apos;d actually use in our own practice.
-          </p>
-          <p>
-            Today, over 12,000 architects in 60+ countries use Architecture Paradise to reclaim
-            their time — and spend it where it matters: on design, on clients, on the work that
-            actually requires their expertise.
-          </p>
-          <p className="text-text-primary font-semibold text-lg pt-4">
-            We&apos;re not replacing architects. We&apos;re giving them a head start.
-          </p>
-        </div>
-      </section>
 
-      {/* Mission */}
-      <section className="bg-surface-alt py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-text-primary mb-4">Our Mission</h2>
-          <p className="text-text-secondary leading-relaxed text-lg">
-            To give every architect — from solo practitioners to global firms —
-            professional-grade starting points that eliminate repetitive drafting and free up time
-            for meaningful design work.
+          <h2 className="text-2xl font-bold text-text-primary pt-4">What We Believe</h2>
+          <p>
+            Every line in an architectural drawing matters. That&apos;s why we don&apos;t auto-generate
+            our blocks or trace stock images. Every block in our library is drawn by hand — with the
+            same care you&apos;d put into your own projects.
+          </p>
+
+          <h2 className="text-2xl font-bold text-text-primary pt-4">What We Make</h2>
+          <p>
+            <strong>Three all-in-one templates</strong> — complete professional setups for AutoCAD,
+            ArchiCAD, and Revit. Each includes the template, blocks, guides, and presets. Download, open, draw.
+          </p>
+          <p>
+            <strong>A curated library of CAD blocks</strong> — residential, urban, healthcare,
+            vegetation, and people. All in universal .dwg format. All hand-drawn in our Swiss studio.
+          </p>
+
+          <h2 className="text-2xl font-bold text-text-primary pt-4">Why Swiss?</h2>
+          <p>
+            Switzerland has one of the world&apos;s highest concentrations of architects per capita.
+            We grew up surrounded by precision, craft, and good design. It shows in our work.
+          </p>
+
+          <h2 className="text-2xl font-bold text-text-primary pt-4">Contact</h2>
+          <p>
+            Questions? Feedback? We&apos;re here.<br />
+            <a href="mailto:contact@architectureparadise.com" className="text-accent hover:underline">
+              contact@architectureparadise.com
+            </a><br />
+            Support available 24/7.
           </p>
         </div>
       </section>
 
       {/* Promise */}
-      <section className="py-16 px-4">
+      <section className="bg-surface-alt py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-text-primary text-center mb-10">
             Our Promise
@@ -116,23 +115,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="bg-primary text-white py-12 px-4">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[
-            { value: '12,000+', label: 'Architects worldwide' },
-            { value: '500+', label: 'Templates' },
-            { value: '60+', label: 'Countries' },
-            { value: '4.8/5', label: 'Average rating' },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <div className="text-2xl md:text-3xl font-bold text-accent">{stat.value}</div>
-              <div className="text-white/60 text-sm mt-1">{stat.label}</div>
-            </div>
-          ))}
         </div>
       </section>
     </>

@@ -1,7 +1,7 @@
 const steps = [
-  { num: 1, title: 'Choose Your Template', desc: 'Browse by software & style' },
-  { num: 2, title: 'Instant Download', desc: 'Get your files immediately after purchase' },
-  { num: 3, title: 'Start Designing', desc: 'Open in your software and customize' },
+  { num: 1, title: 'Choose Your Package', desc: 'Templates, CAD blocks, or bundles — pick what you need' },
+  { num: 2, title: 'Instant Download', desc: 'Download link sent to your email immediately' },
+  { num: 3, title: 'Open & Draw', desc: 'Open in your CAD software and start working' },
 ];
 
 export default function HowItWorks() {
@@ -15,12 +15,10 @@ export default function HowItWorks() {
         <div className="flex flex-col items-center gap-0 tablet:flex-row tablet:gap-8 tablet:justify-center">
           {steps.map((step, i) => (
             <div key={step.num} className="flex flex-col items-center text-center relative">
-              {/* Connector line (mobile: vertical, tablet: hidden) */}
               {i < steps.length - 1 && (
                 <div className="w-px h-8 bg-border tablet:hidden" />
               )}
 
-              {/* Number circle */}
               <div className="w-12 h-12 rounded-full bg-accent text-white text-lg font-bold flex items-center justify-center mb-3">
                 {step.num}
               </div>
@@ -32,7 +30,6 @@ export default function HowItWorks() {
                 {step.desc}
               </p>
 
-              {/* Spacer for mobile between steps */}
               {i < steps.length - 1 && (
                 <div className="w-px h-8 bg-border mt-4 tablet:hidden" />
               )}

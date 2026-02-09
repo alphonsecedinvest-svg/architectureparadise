@@ -436,18 +436,18 @@ export function getRelatedProducts(product: ShopifyProduct, limit: number = 4): 
 }
 
 export const mockTestimonials: Testimonial[] = [
-  { id: '1', text: 'This template saved me an entire week on my residential project. The detail level is incredible — it felt like a colleague had already started the project for me.', author: 'Maria L.', role: 'Architect, Barcelona', rating: 5 },
-  { id: '2', text: 'I was skeptical about buying templates online, but the quality blew me away. Proper layers, real annotations, not just a pretty 3D model.', author: 'Thomas K.', role: 'Senior Architect, Berlin', rating: 5 },
-  { id: '3', text: 'We bought the residential bundle for our firm. Every junior architect now starts with these templates. Consistency went up, revision cycles went down.', author: 'Sarah M.', role: 'Principal, London', rating: 5 },
-  { id: '4', text: 'The ArchiCAD templates are exactly what I needed for my thesis project. Professional quality at a student-friendly price.', author: 'Lucas R.', role: 'Architecture Student, Paris', rating: 4 },
-  { id: '5', text: 'Best investment I made this year. The commercial office template paid for itself on my very first project with it.', author: 'Ana P.', role: 'Freelance Architect, Lisbon', rating: 5 },
+  { id: '1', text: 'The All-in-One AutoCAD Package saved me days of setup. Template, blocks, presets — everything was ready. I just opened it and started drawing.', author: 'Maria L.', role: 'Architect, Barcelona', rating: 5 },
+  { id: '2', text: 'The hand-drawn CAD blocks are beautiful — you can tell they were made by real designers, not auto-generated. They add so much character to my drawings.', author: 'Thomas K.', role: 'Senior Architect, Berlin', rating: 5 },
+  { id: '3', text: 'We bought the Complete Residential Bundle for our firm. The quality and consistency across all the block packs is impressive. Great value.', author: 'Sarah M.', role: 'Principal, London', rating: 5 },
+  { id: '4', text: 'The ArchiCAD template is exactly what I needed for my thesis project. Professional quality, instant download, and the startup guide was super helpful.', author: 'Lucas R.', role: 'Architecture Student, Paris', rating: 5 },
+  { id: '5', text: 'Best investment I made this year. The vegetation blocks and people blocks bring my drawings to life. Swiss quality really shows.', author: 'Ana P.', role: 'Freelance Architect, Lisbon', rating: 5 },
 ];
 
 export const mockFAQ: FAQItem[] = [
-  { question: 'What file formats are included?', answer: 'All templates include native project files (.pln, .rvt, .skp) plus DWG and PDF exports. You get everything you need to start working immediately.' },
-  { question: 'Are updates really free?', answer: 'Yes. When we update a template for new software versions or improvements, you get the update at no additional cost. Forever.' },
-  { question: 'Can I use templates for commercial projects?', answer: 'Absolutely. Our standard license covers commercial use for your own client projects. The only restriction is redistribution of the template files themselves.' },
-  { question: 'What software versions are supported?', answer: 'We support the latest 4-5 versions of each software. Check the compatibility table on each product page for specific version details.' },
-  { question: 'How do I get support?', answer: 'Email us at support@architectureparadise.com. We respond within 24 hours — and our support team actually uses architecture software, so we understand your questions.' },
-  { question: 'Do you offer refunds?', answer: "Yes, 14-day money-back guarantee if the template doesn't work as described. We want you to be completely confident in your purchase." },
+  { question: 'What file formats are included?', answer: 'Templates include native files for the respective software (AutoCAD, ArchiCAD, or Revit). All CAD blocks are in universal .dwg format, compatible with any CAD software.' },
+  { question: 'How do I receive my purchase?', answer: 'Instantly! A download link is sent to your email the moment your payment is confirmed. No waiting, no approval process.' },
+  { question: 'Can I use this for commercial projects?', answer: 'Yes. The license covers professional use for your own projects. Redistribution or resale of the files is not permitted.' },
+  { question: 'Can I use the blocks in other software?', answer: 'Yes. The CAD blocks are in universal .dwg format, compatible with AutoCAD, ArchiCAD, Revit, SketchUp, and most other CAD programs.' },
+  { question: 'Do you offer refunds?', answer: 'As these are digital products delivered instantly, we cannot offer refunds. If you have any issues, our support team is available at contact@architectureparadise.com.' },
+  { question: 'How do I get support?', answer: 'Email us at contact@architectureparadise.com. We respond within 24 hours — and our support team actually uses architecture software, so we understand your questions.' },
 ];
