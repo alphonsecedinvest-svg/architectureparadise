@@ -60,6 +60,64 @@ function pickName(seed) {
   return `${firstNames[fi]} ${lastInitials[li]}.`;
 }
 
+// Location pools with weighted distribution (~100 entries)
+const locationPools = [
+  // USA ~30%
+  ...Array(5).fill('New York, USA'), ...Array(4).fill('Los Angeles, USA'),
+  ...Array(4).fill('Chicago, USA'), ...Array(3).fill('San Francisco, USA'),
+  ...Array(3).fill('Miami, USA'), ...Array(3).fill('Austin, USA'),
+  ...Array(3).fill('Seattle, USA'), ...Array(2).fill('Boston, USA'),
+  ...Array(2).fill('Portland, USA'), ...Array(1).fill('Denver, USA'),
+  // UK ~15%
+  ...Array(5).fill('London, UK'), ...Array(3).fill('Manchester, UK'),
+  ...Array(2).fill('Edinburgh, UK'), ...Array(2).fill('Bristol, UK'),
+  ...Array(2).fill('Leeds, UK'), ...Array(1).fill('Birmingham, UK'),
+  // Germany ~12%
+  ...Array(3).fill('Berlin, Germany'), ...Array(3).fill('Munich, Germany'),
+  ...Array(2).fill('Hamburg, Germany'), ...Array(2).fill('Frankfurt, Germany'),
+  ...Array(1).fill('Stuttgart, Germany'), ...Array(1).fill('Cologne, Germany'),
+  // Australia ~10%
+  ...Array(3).fill('Sydney, Australia'), ...Array(3).fill('Melbourne, Australia'),
+  ...Array(2).fill('Brisbane, Australia'), ...Array(1).fill('Perth, Australia'),
+  ...Array(1).fill('Adelaide, Australia'),
+  // France ~8%
+  ...Array(3).fill('Paris, France'), ...Array(2).fill('Lyon, France'),
+  ...Array(1).fill('Marseille, France'), ...Array(1).fill('Bordeaux, France'),
+  ...Array(1).fill('Toulouse, France'),
+  // Rest of Europe ~15%
+  ...Array(2).fill('Amsterdam, Netherlands'), ...Array(2).fill('Barcelona, Spain'),
+  ...Array(2).fill('Milan, Italy'), ...Array(1).fill('Zurich, Switzerland'),
+  ...Array(1).fill('Vienna, Austria'), ...Array(1).fill('Copenhagen, Denmark'),
+  ...Array(2).fill('Stockholm, Sweden'), ...Array(1).fill('Oslo, Norway'),
+  ...Array(1).fill('Lisbon, Portugal'), ...Array(1).fill('Dublin, Ireland'),
+  ...Array(1).fill('Prague, Czech Republic'),
+  // Rest of World ~10%
+  ...Array(2).fill('Toronto, Canada'), ...Array(2).fill('Tokyo, Japan'),
+  ...Array(1).fill('Singapore, Singapore'), ...Array(1).fill('Dubai, UAE'),
+  ...Array(1).fill('São Paulo, Brazil'), ...Array(1).fill('Mumbai, India'),
+  ...Array(1).fill('Seoul, South Korea'), ...Array(1).fill('Cape Town, South Africa'),
+];
+
+const nameLocationMap = {
+  // Only map very distinctive names to keep distribution close to pool weights
+  'Yuki': 'Tokyo, Japan', 'Hiroshi': 'Tokyo, Japan', 'Sakura': 'Tokyo, Japan',
+  'Kenji': 'Tokyo, Japan', 'Akiko': 'Tokyo, Japan',
+  'Pierre': 'Paris, France', 'Antoine': 'Paris, France',
+  'Raj': 'Mumbai, India', 'Priya': 'Mumbai, India', 'Arjun': 'Mumbai, India',
+  'Giovanni': 'Milan, Italy', 'Francesca': 'Milan, Italy', 'Alessandro': 'Milan, Italy',
+  'Siobhan': 'Dublin, Ireland', 'Ciaran': 'Dublin, Ireland', 'Aoife': 'Dublin, Ireland',
+  'Mohammed': 'Dubai, UAE', 'Fatima': 'Dubai, UAE',
+  'Mei': 'Singapore, Singapore', 'Wei': 'Singapore, Singapore',
+  'Kofi': 'Cape Town, South Africa', 'Kwame': 'Cape Town, South Africa',
+  'Jin': 'Seoul, South Korea',
+};
+
+function pickLocation(name, seed) {
+  const firstName = name.split(' ')[0];
+  if (nameLocationMap[firstName]) return nameLocationMap[firstName];
+  return locationPools[(seed * 31 + 7) % locationPools.length];
+}
+
 // Date generation over 12 months
 function makeDate(seed) {
   const base = new Date('2026-02-01');
@@ -384,6 +442,7 @@ function generateReviews(product, count = 75) {
       text,
       date: makeDate(absSeed + i),
       verified: (absSeed + i) % 5 !== 0, // ~80% verified
+      location: pickLocation(name, absSeed + i),
     });
   }
   return reviews;
@@ -727,7 +786,7 @@ for (const p of products) {
   const reviews = generateReviews(p);
   output += `  '${p.handle}': [\n`;
   for (const r of reviews) {
-    output += `    { id: '${r.id}', author: ${JSON.stringify(r.author)}, rating: ${r.rating}, title: ${JSON.stringify(r.title)}, text: ${JSON.stringify(r.text)}, date: '${r.date}', verified: ${r.verified} },\n`;
+    output += `    { id: '${r.id}', author: ${JSON.stringify(r.author)}, rating: ${r.rating}, title: ${JSON.stringify(r.title)}, text: ${JSON.stringify(r.text)}, date: '${r.date}', verified: ${r.verified}, location: ${JSON.stringify(r.location)} },\n`;
   }
   output += `  ],\n`;
 }

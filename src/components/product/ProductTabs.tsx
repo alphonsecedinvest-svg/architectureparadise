@@ -167,7 +167,7 @@ export default function ProductTabs({ extended, rating, reviewCount }: ProductTa
                   <p className="font-semibold text-sm mb-1">&ldquo;{review.title}&rdquo;</p>
                   <p className="text-sm text-text-secondary mb-3">{review.text}</p>
                   <p className="text-xs text-text-muted">
-                    {review.author} · {formatRelativeDate(review.date)}
+                    {review.author}{review.location ? ` · ${review.location}` : ''} · {formatRelativeDate(review.date)}
                   </p>
                 </div>
               ))}
