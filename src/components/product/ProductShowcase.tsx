@@ -243,30 +243,34 @@ export default function ProductShowcase({ handle }: { handle: string }) {
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
           Before vs After
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Without */}
-          <div className="rounded-2xl bg-surface-alt border border-border p-6">
-            <h3 className="font-semibold text-text-primary mb-4 text-center text-base">
+          <div className="rounded-2xl bg-red-50 border-2 border-red-200 p-6 relative overflow-hidden">
+            <div className="absolute top-3 right-3 text-red-300 text-4xl font-black opacity-20 select-none">✕</div>
+            <h3 className="font-bold text-red-800 mb-5 text-center text-lg flex items-center justify-center gap-2">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-red-100 text-red-600 text-sm">✕</span>
               Without a template
             </h3>
             <ul className="space-y-3">
               {data.beforeAfter.map((row) => (
-                <li key={row.without} className="flex items-start gap-3 text-sm text-text-secondary">
-                  <span className="shrink-0 mt-0.5 text-error text-base">✕</span>
+                <li key={row.without} className="flex items-start gap-3 text-sm text-red-900/80 font-medium">
+                  <span className="shrink-0 mt-0.5 text-red-500 text-base font-bold">✕</span>
                   {row.without}
                 </li>
               ))}
             </ul>
           </div>
           {/* With */}
-          <div className="rounded-2xl bg-primary p-6">
-            <h3 className="font-semibold text-white mb-4 text-center text-base">
+          <div className="rounded-2xl bg-emerald-600 p-6 relative overflow-hidden shadow-lg shadow-emerald-600/20">
+            <div className="absolute top-3 right-3 text-white text-4xl font-black opacity-10 select-none">✓</div>
+            <h3 className="font-bold text-white mb-5 text-center text-lg flex items-center justify-center gap-2">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 text-white text-sm">✓</span>
               With our template
             </h3>
             <ul className="space-y-3">
               {data.beforeAfter.map((row) => (
-                <li key={row.with} className="flex items-start gap-3 text-sm text-white/85">
-                  <span className="shrink-0 mt-0.5 text-accent text-base">✓</span>
+                <li key={row.with} className="flex items-start gap-3 text-sm text-white font-medium">
+                  <span className="shrink-0 mt-0.5 text-emerald-200 text-base font-bold">✓</span>
                   {row.with}
                 </li>
               ))}
