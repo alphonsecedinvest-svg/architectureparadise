@@ -16,6 +16,8 @@
   --color-border: #E2E0DB;
   --color-error: #E74C3C;
   --color-star: #F5A623;
+  --color-trustpilot: #00B67A;
+  --color-trustpilot-dark: #009567;
 
   /* Font */
   --font-sans: 'Inter', system-ui, sans-serif;
