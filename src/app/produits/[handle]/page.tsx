@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: Props) {
   const product = await getProductByHandle(handle);
   if (!product) notFound();
 
-  const extended = getProductExtended(product.id);
+  const extended = getProductExtended(product.handle);
   const { rating, count } = getProductRating(product);
   const related = await getRelatedProducts(product, 4);
 

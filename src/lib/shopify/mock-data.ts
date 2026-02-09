@@ -1,4 +1,5 @@
 import type { ShopifyProduct, ShopifyCollection, Testimonial, FAQItem } from '@/types';
+import { reviewsMap as extReviewsMap, compatibilityMap as extCompatibilityMap, featuresMap as extFeaturesMap } from './mock-data-extended';
 
 const placeholder = (w: number, h: number, label: string) =>
   `https://placehold.co/${w}x${h}/1A1A2E/E8A838?text=${encodeURIComponent(label)}`;
@@ -457,12 +458,31 @@ export function getCollectionByHandle(handle: string): ShopifyCollection | undef
   return mockCollections.find(c => c.handle === handle);
 }
 
-export function getProductExtended(productId: string): ProductExtended {
+export function getProductExtended(handleOrId: string): ProductExtended {
+  // Try handle-based lookup first (extended data), then fall back to legacy ID-based
+  const reviews = extReviewsMap[handleOrId] || reviewsMap[handleOrId] || [];
+  const compatibility = extCompatibilityMap[handleOrId] || compatibilityMap[handleOrId] || {
+    software: 'Universal CAD',
+    versions: [
+      { version: 'AutoCAD 2020–2025', status: 'full' as const },
+      { version: 'ArchiCAD 24–28', status: 'full' as const },
+      { version: 'Revit 2022–2025', status: 'full' as const },
+      { version: 'Any .dwg-compatible software', status: 'full' as const },
+    ],
+    formats: ['.dwg (universal CAD format)'],
+  };
+  const features = extFeaturesMap[handleOrId] || featuresMap[handleOrId] || {
+    whatsIncluded: ['High-quality CAD blocks', 'Universal .dwg format', 'Plan and elevation views', 'Hand-drawn style'],
+    specifications: [
+      { label: 'Format', value: '.dwg (universal)' },
+      { label: 'Style', value: 'Hand-drawn architectural' },
+    ],
+  };
   return {
-    reviews: reviewsMap[productId] || [],
-    compatibility: compatibilityMap[productId] || { software: 'ArchiCAD', versions: [], formats: [] },
-    features: featuresMap[productId] || { whatsIncluded: [], specifications: [] },
-    faq: productFaqMap[productId] || productFaqMap['default']!,
+    reviews,
+    compatibility,
+    features,
+    faq: productFaqMap[handleOrId] || productFaqMap['default']!,
   };
 }
 
